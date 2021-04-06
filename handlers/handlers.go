@@ -17,6 +17,7 @@ func Handlers() {
 	router := mux.NewRouter() // capture http and hangle w/r, if has information to send a response
 
 	router.HandleFunc("/signup", middlewaredb.CheckDB(routers.Register)).Methods("POST")
+	router.HandleFunc("/signin", middlewaredb.CheckDB(routers.Login)).Methods("POST")
 
 	PORT := os.Getenv("PORT")
 

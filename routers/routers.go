@@ -27,7 +27,7 @@ func Register(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if _, emailExist, _ := db.CheckUserExist(user.Email); emailExist == true {
+	if _, emailExist, _ := db.CheckUserExist(user.Email); emailExist {
 		http.Error(rw, "Email already exist", 404)
 		return
 	}
@@ -35,7 +35,7 @@ func Register(rw http.ResponseWriter, r *http.Request) {
 	if _, status, err := db.InsertUser(user); err != nil {
 		http.Error(rw, "An error occurred inserting user "+err.Error(), 404)
 		return
-	} else if status == false {
+	} else if !status {
 		http.Error(rw, "An error occurred inserting user, failed in status "+err.Error(), 404)
 		return
 	}
