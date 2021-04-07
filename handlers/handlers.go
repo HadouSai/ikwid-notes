@@ -18,6 +18,7 @@ func Handlers() {
 
 	router.HandleFunc("/signup", middlewaredb.CheckDB(routers.Register)).Methods("POST")
 	router.HandleFunc("/signin", middlewaredb.CheckDB(routers.Login)).Methods("POST")
+	router.HandleFunc("/viewprofile", middlewaredb.CheckDB(middlewaredb.ValidateJwt(routers.ViewProfile))).Methods("GET")
 
 	PORT := os.Getenv("PORT")
 
@@ -27,10 +28,8 @@ func Handlers() {
 
 	handler := cors.AllowAll().Handler(router) // cors take the control
 
-	//log.Fatal(http.ListenAndServe(":"+PORT, handler))
-
 	if err := http.ListenAndServe(":"+PORT, handler); err != nil {
-		log.New(os.Stdout, "[Error]", 0).Fatalf("Error: No se pudo iniciar el servidor: 127.0.0.1:%s. \n Message: %v", PORT, err)
+		log.New(os.Stdout, "[Error]", 0).Fatalf("Message: No se pudo iniciar el servidor: %s. \n Error: %v", PORT, err)
 	}
 
 }
