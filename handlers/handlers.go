@@ -19,6 +19,7 @@ func Handlers() {
 	router.HandleFunc("/signup", middlewaredb.CheckDB(routers.Register)).Methods("POST")
 	router.HandleFunc("/signin", middlewaredb.CheckDB(routers.Login)).Methods("POST")
 	router.HandleFunc("/viewprofile", middlewaredb.CheckDB(middlewaredb.ValidateJwt(routers.ViewProfile))).Methods("GET")
+	router.HandleFunc("/editprofile", middlewaredb.CheckDB(middlewaredb.ValidateJwt(routers.EditProfile))).Methods("PUT")
 
 	PORT := os.Getenv("PORT")
 

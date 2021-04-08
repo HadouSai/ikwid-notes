@@ -19,7 +19,7 @@ func ProcessToken(token string) (*models.Claim, bool, string, error) {
 
 	tok, err := jwt.ParseWithClaims(token, claims, func(token *jwt.Token) (interface{}, error) { return myUltraSuperSecretKey, nil })
 
-	if err != nil {
+	if err == nil {
 		_, exists, _ := db.CheckUserExist(claims.Email)
 		if exists {
 			Email = claims.Email
