@@ -13,9 +13,7 @@ func Login(rw http.ResponseWriter, r *http.Request) {
 	rw.Header().Add("Content-Type", "application/json")
 	var user models.User
 
-	err := json.NewDecoder(r.Body).Decode(&user)
-
-	if err != nil {
+	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
 		http.Error(rw, "User or password incorrect"+err.Error(), http.StatusUnauthorized)
 	}
 
